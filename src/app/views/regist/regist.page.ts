@@ -6,17 +6,19 @@ import {
   Validators,
 } from '@angular/forms';
 import { NavController } from '@ionic/angular';
-import { Storage } from '@ionic/storage-angular';
 import { AuthService } from 'src/app/services/auth.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: 'app-regist',
+  templateUrl: './regist.page.html',
+  styleUrls: ['./regist.page.scss'],
 })
-export class LoginPage implements OnInit {
-  loginForm: FormGroup;
+export class RegistPage implements OnInit {
+  registForm: FormGroup;
   validation_messages = {
+    nombre: [{ type: 'required', message: 'El nombre es requerido' }],
+    apellido: [{ type: 'required', message: 'El apellido es requerido' }],
     email: [
       { type: 'required', message: 'El email es requerido' },
       { type: 'pattern', message: 'No es un email valido' },
@@ -34,7 +36,9 @@ export class LoginPage implements OnInit {
     private navCtrl: NavController,
     private storage: Storage
   ) {
-    this.loginForm = this.formBuilder.group({
+    this.registForm = this.formBuilder.group({
+      nombre: new FormControl('', Validators.compose([Validators.required])),
+      apellido: new FormControl('', Validators.compose([Validators.required])),
       email: new FormControl(
         '',
         Validators.compose([
@@ -49,21 +53,12 @@ export class LoginPage implements OnInit {
     });
   }
 
-  loginUser(credentials) {
-    this.authService
-      .loginUser(credentials)
-      .then((r) => {
-        (this.errorMessage = ''),
-          this.storage.set('userLoggedIn', true),
-          this.navCtrl.navigateForward('/home');
-      })
-      .catch((er) => {
-        this.errorMessage = er;
-      });
+  regist(userData) {
+    console.log('uData=>', userData);
   }
 
-  goToRegister() {
-    this.navCtrl.navigateForward('/regist');
+  goBack() {
+    this.navCtrl.navigateBack('/login');
   }
   ngOnInit() {}
 }
