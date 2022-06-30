@@ -30,6 +30,10 @@ const routes: Routes = [
       import('./views/menu/menu.module').then((m) => m.MenuPageModule),
     canActivate: [LoginGuard, IntroGuard],
   },
+  {
+    path: 'songs-modal',
+    loadChildren: () => import('./views/songs-modal/songs-modal.module').then( m => m.SongsModalPageModule)
+  },
 ];
 
 @NgModule({

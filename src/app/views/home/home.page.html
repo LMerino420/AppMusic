@@ -9,12 +9,30 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-    <h1>Artistas</h1>
+    <h1>Artist</h1>
     <ion-slides mode="ios" [options]="slideOps" *ngIf="artist.length">
         <ion-slide *ngFor="let art of artist">
-            <ion-avatar>
-                <img src="/assets/img/LMerino-logo.png" />
-                <span>Nombre del artista:</span>
+            <ion-avatar (click)="showSong(art)">
+                <img [src]="art.images[0].url" />
+                <span>{{art.name}}</span>
+            </ion-avatar>
+        </ion-slide>
+    </ion-slides>
+    <h1>Albums</h1>
+    <ion-slides mode="ios" [options]="slideOps" *ngIf="almbums.length">
+        <ion-slide *ngFor="let alb of almbums">
+            <ion-avatar class="square-avatar">
+                <img [src]="alb.images[0].url" />
+                <span>{{alb.name}}</span>
+            </ion-avatar>
+        </ion-slide>
+    </ion-slides>
+    <h1>Canciones</h1>
+    <ion-slides mode="ios" [options]="slideOps" *ngIf="songs.length">
+        <ion-slide *ngFor="let song of songs">
+            <ion-avatar class="square-avatar">
+                <img [src]="song.images[0].url" />
+                <span>{{song.name}}</span>
             </ion-avatar>
         </ion-slide>
     </ion-slides>
