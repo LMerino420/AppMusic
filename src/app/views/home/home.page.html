@@ -9,5 +9,13 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-    <h1>ESTE ES EL HOME</h1>
+    <h1>Artistas</h1>
+    <ion-slides mode="ios" [options]="slideOps" *ngIf="artist.length">
+        <ion-slide *ngFor="let art of artist">
+            <ion-avatar>
+                <img src="/assets/img/LMerino-logo.png" />
+                <span>Nombre del artista:</span>
+            </ion-avatar>
+        </ion-slide>
+    </ion-slides>
 </ion-content>
