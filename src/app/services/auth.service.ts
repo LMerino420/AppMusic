@@ -9,6 +9,7 @@ export class AuthService {
 
   async loginUser(credentials) {
     let uData = await this.storage.get('user');
+    console.log('PWD uDATA=>', uData.password);
     return new Promise((ac, rj) => {
       credentials.password = btoa(credentials.password);
       if (
