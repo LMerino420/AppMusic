@@ -31,10 +31,10 @@ const routes: Routes = [
     canActivate: [LoginGuard, IntroGuard],
   },
   {
-    path: 'songs-modal',
+    path: 'show-songs',
     loadChildren: () =>
-      import('./views/modals/songs-modal/songs-modal.module').then(
-        (m) => m.SongsModalPageModule
+      import('./views/modals/show-songs/show-songs.module').then(
+        (m) => m.ShowSongsPageModule
       ),
   },
 ];

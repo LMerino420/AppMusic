@@ -7,7 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { IonicStorageModule } from '@ionic/storage-angular';
-import { SongsModalPageModule } from './views/modals/songs-modal/songs-modal.module';
+import { ShowSongsPageModule } from './views/modals/show-songs/show-songs.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -15,7 +15,7 @@ import { SongsModalPageModule } from './views/modals/songs-modal/songs-modal.mod
     BrowserModule,
     IonicModule.forRoot(),
     AppRoutingModule,
-    SongsModalPageModule,
+    ShowSongsPageModule,
     IonicStorageModule.forRoot(),
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],

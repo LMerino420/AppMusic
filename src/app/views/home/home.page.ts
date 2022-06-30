@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { ServMusicService } from 'src/app/services/serv-music.service';
-import { SongsModalPage } from '../modals/songs-modal/songs-modal.page';
+import { ShowSongsPage } from '../modals/show-songs/show-songs.page';
 
 interface Song {
   name?: string;
@@ -49,15 +49,27 @@ export class HomePage {
     });
   }
 
-  async showSong(artist) {
-    console.log(artist.id);
-    const songs = await this.servMusic.getArtistTracks(artist.id);
-    console.log('SONGS =>', songs);
+  async showSongsMod(data, type) {
+    let songs: any;
+
+    switch (type) {
+      case 'Art':
+        console.log('ARTISTA=>', data.id);
+        let art = await this.servMusic.getArtistTracks(data.id);
+        songs = art.tracks;
+        break;
+      case 'Alb':
+        console.log('ALBUM=>', data.id);
+        let alb = await this.servMusic.getAlbumsTracks(data.id);
+        songs = alb.items;
+        break;
+    }
+
     const modal = await this.modalCtrl.create({
-      component: SongsModalPage,
+      component: ShowSongsPage,
       componentProps: {
-        songs: songs.tracks,
-        artist: artist.name,
+        songs: songs,
+        name: data.name,
       },
     });
 
@@ -82,7 +94,7 @@ export class HomePage {
     this.song.playing = false;
   }
 
-  parseTime(time = '01.00') {
+  parseTime(time = '00.00') {
     const partTime = parseInt(time.toString().split('.')[0], 10);
     let minutes = Math.floor(partTime / 60).toString();
     if (minutes.length == 1) {

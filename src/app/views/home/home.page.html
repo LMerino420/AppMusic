@@ -12,7 +12,7 @@
     <h1>Artist</h1>
     <ion-slides mode="ios" [options]="slideOps" *ngIf="artist.length">
         <ion-slide *ngFor="let art of artist">
-            <ion-avatar (click)="showSong(art)">
+            <ion-avatar (click)="showSongsMod(art,'Art')">
                 <img [src]="art.images[0].url" />
                 <span>{{art.name}}</span>
             </ion-avatar>
@@ -21,7 +21,7 @@
     <h1>Albums</h1>
     <ion-slides mode="ios" [options]="slideOps" *ngIf="almbums.length">
         <ion-slide *ngFor="let alb of almbums">
-            <ion-avatar class="square-avatar">
+            <ion-avatar class="square-avatar" (click)="showSongsMod(alb,'Alb')">
                 <img [src]="alb.images[0].url" />
                 <span>{{alb.name}}</span>
             </ion-avatar>
@@ -38,12 +38,6 @@
     </ion-slides>
 </ion-content>
 <ion-footer>
-    <!-- <ion-text color="danger" *ngIf="!song.name">
-        <h2>Cancion seleccionada</h2>
-    </ion-text>
-    <ion-text color="primary" *ngIf="song.name">
-        <h1>{{song.name}}</h1>
-    </ion-text> -->
     <ion-grid fixed>
         <ion-row>
             <ion-col class="ion-text-start">{{ parseTime(currentSong.currentTime) || '0:00'}}</ion-col>
