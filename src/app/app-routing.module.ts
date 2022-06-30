@@ -32,7 +32,10 @@ const routes: Routes = [
   },
   {
     path: 'songs-modal',
-    loadChildren: () => import('./views/songs-modal/songs-modal.module').then( m => m.SongsModalPageModule)
+    loadChildren: () =>
+      import('./views/modals/songs-modal/songs-modal.module').then(
+        (m) => m.SongsModalPageModule
+      ),
   },
 ];
 
