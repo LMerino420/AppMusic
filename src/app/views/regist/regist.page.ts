@@ -54,7 +54,11 @@ export class RegistPage implements OnInit {
   }
 
   regist(userData) {
-    console.log('uData=>', userData);
+    console.log('uData REGIST=>', userData.password);
+    userData.password = btoa(userData.password);
+    this.authService.registUser(userData).then(() => {
+      this.navCtrl.navigateBack('/login');
+    });
   }
 
   goBack() {

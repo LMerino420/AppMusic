@@ -50,6 +50,7 @@ export class LoginPage implements OnInit {
   }
 
   loginUser(credentials) {
+    console.log('Cred Login=>', credentials);
     this.authService
       .loginUser(credentials)
       .then((r) => {
