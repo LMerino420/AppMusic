@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons>
+            <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-avatar (click)="takePic()">
+        <img [src]="usImg" *ngIf="!photo" />
+        <img [src]="photo" *ngIf="photo" />
+    </ion-avatar>
+</ion-content>

@@ -3,12 +3,6 @@ import { ModalController } from '@ionic/angular';
 import { ServMusicService } from 'src/app/services/serv-music.service';
 import { ShowSongsPage } from '../modals/show-songs/show-songs.page';
 
-interface Song {
-  name?: string;
-  playing: boolean;
-  preview_url?: string;
-}
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -18,12 +12,12 @@ export class HomePage {
   artist = [];
   songs = [];
   almbums = [];
-  song: Song = {
+  song = {
     name: '',
     playing: false,
     preview_url: '',
   };
-  currentSong: any = {};
+  currentSong: HTMLAudioElement;
   newTime;
 
   slideOps = {
@@ -94,7 +88,8 @@ export class HomePage {
     this.song.playing = false;
   }
 
-  parseTime(time = '00.00') {
+  // establecer formato del tiempo
+  parseTime(time: number) {
     const partTime = parseInt(time.toString().split('.')[0], 10);
     let minutes = Math.floor(partTime / 60).toString();
     if (minutes.length == 1) {
