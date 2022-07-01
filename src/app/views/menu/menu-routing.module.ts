@@ -20,6 +20,12 @@ const routes: Routes = [
             (m) => m.SettingsPageModule
           ),
       },
+
+      {
+        path: 'sport',
+        loadChildren: () =>
+          import('../sport/sport.module').then((m) => m.SportPageModule),
+      },
       {
         path: '',
         redirectTo: 'home',

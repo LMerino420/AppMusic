@@ -36,10 +36,8 @@ export class HomePage {
   ionViewDidEnter() {
     this.servMusic.getNewReleses().then((newRel) => {
       this.artist = this.servMusic.getArtist().items;
-      console.log('ARTIST=>', this.artist);
       this.almbums = newRel.albums.items.filter((e) => e.album_type == 'album');
       this.songs = newRel.albums.items.filter((e) => e.album_type == 'single');
-      console.log('ART=>', this.artist);
     });
   }
 
@@ -75,6 +73,9 @@ export class HomePage {
   }
 
   play() {
+    if (this.currentSong) {
+      this.pause();
+    }
     this.currentSong = new Audio(this.song.preview_url);
     this.currentSong.play();
     this.currentSong.addEventListener('timeupdate', () => {

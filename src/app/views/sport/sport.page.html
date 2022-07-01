@@ -1,0 +1,39 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar>
+        <ion-buttons>
+            <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" align="center">
+    <h1>ESPACIO PARA EL MAPA</h1>
+    <div class="ion-padding">
+        <ion-searchbar (keyup)="getTracks($event)"></ion-searchbar>
+        <div class="ion-text-center" *ngIf="searching">
+            <ion-spinner name="crescent"></ion-spinner>
+        </div>
+        <div *ngIf="!songs || songs.length === 0">
+            <h3>Opps! No hay canciones.</h3>
+            <ion-text> {{ text }} </ion-text>
+        </div>
+        <ion-virtual-scroll [items]="songs" *ngIf="songs">
+            <ion-item *virtualItem="let song">
+                {{ song.name }} - {{song.artists[0]['name']}}
+                <ion-buttons slot="end">
+                    <ion-button (click)="pause()" *ngIf="song.playing">
+                        <ion-icon name="pause"></ion-icon>
+                    </ion-button>
+                    <ion-button *ngIf="song.playing">
+                        <ion-spinner name="dots"></ion-spinner>
+                    </ion-button>
+                    <ion-button (click)="play(song)" *ngIf="!song.playing">
+                        <ion-icon name="play"></ion-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-item>
+        </ion-virtual-scroll>
+    </div>
+</ion-content>

@@ -23,6 +23,16 @@ export class MenuPage {
     this.navCtrl.navigateRoot('/login');
   }
 
+  goHome() {
+    this.navCtrl.navigateRoot('/menu');
+    this.menuCtrl.close();
+  }
+
+  goSport() {
+    this.navCtrl.navigateRoot('/menu/sport');
+    this.menuCtrl.close();
+  }
+
   goSettings() {
     this.navCtrl.navigateRoot('/menu/settings');
     this.menuCtrl.close();

@@ -5,6 +5,8 @@ import * as dataArtist from './artists.json';
   providedIn: 'root',
 })
 export class ServMusicService {
+  private url = 'https://platzi-music-api.herokuapp.com/';
+
   constructor() {}
 
   getArtist() {
@@ -12,24 +14,24 @@ export class ServMusicService {
   }
 
   getNewReleses() {
-    return fetch(
-      'https://platzi-music-api.herokuapp.com/browse/new-releases'
-    ).then((r) => r.json());
+    return fetch(this.url + 'browse/new-releases').then((r) => r.json());
   }
 
   getArtistTracks(artistId) {
     return fetch(
-      'https://platzi-music-api.herokuapp.com/artists/' +
-        artistId +
-        '/top-tracks?country=CO'
+      this.url + 'artists/' + artistId + '/top-tracks?country=CO'
     ).then((response) => response.json());
   }
 
   getAlbumsTracks(albumId) {
-    return fetch(
-      'https://platzi-music-api.herokuapp.com/albums/' +
-        albumId +
-        '/tracks?country=CO'
-    ).then((response) => response.json());
+    return fetch(this.url + 'albums/' + albumId + '/tracks?country=CO').then(
+      (response) => response.json()
+    );
+  }
+
+  searchTracks(text) {
+    return fetch(this.url + 'search?q=' + text + '&type=track').then(
+      (response) => response.json()
+    );
   }
 }
