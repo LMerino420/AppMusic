@@ -33,6 +33,11 @@ export class MenuPage {
     this.menuCtrl.close();
   }
 
+  goApiRest() {
+    this.navCtrl.navigateRoot('/menu/api-rest');
+    this.menuCtrl.close();
+  }
+
   goSettings() {
     this.navCtrl.navigateRoot('/menu/settings');
     this.menuCtrl.close();

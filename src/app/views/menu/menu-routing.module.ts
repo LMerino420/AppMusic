@@ -31,6 +31,13 @@ const routes: Routes = [
         redirectTo: 'home',
         pathMatch: 'full',
       },
+      {
+        path: 'api-rest',
+        loadChildren: () =>
+          import('../api-rest/api-rest.module').then(
+            (m) => m.APIRestPageModule
+          ),
+      },
     ],
   },
 ];
