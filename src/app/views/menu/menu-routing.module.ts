@@ -27,16 +27,16 @@ const routes: Routes = [
           import('../sport/sport.module').then((m) => m.SportPageModule),
       },
       {
+        path: 'api-rest',
+        loadChildren: () =>
+          import('../tabs/api-rest/api-rest.module').then(
+            (m) => m.APIRestPageModule
+          ),
+      },
+      {
         path: '',
         redirectTo: 'home',
         pathMatch: 'full',
-      },
-      {
-        path: 'api-rest',
-        loadChildren: () =>
-          import('../api-rest/api-rest.module').then(
-            (m) => m.APIRestPageModule
-          ),
       },
     ],
   },

@@ -9,6 +9,7 @@ export class ApiDogService {
   }
 
   url = 'https://api.thedogapi.com/v1/images/search';
+  // apiKey = '&api_key=91608fe4-1856-424d-8b2b-3851b49913aa';
 
   async getData() {
     return await fetch(this.url).then((d) => d.json());
