@@ -9,7 +9,14 @@ const routes: Routes = [
     component: APIRestPage,
     children: [
       {
-        path: 'favoritos',
+        path: 'ranDogs',
+        loadChildren: () =>
+          import('../random-dogs/random-dogs.module').then(
+            (m) => m.RandomDogsPageModule
+          ),
+      },
+      {
+        path: 'favDogs',
         loadChildren: () =>
           import('../favoritos/favoritos.module').then(
             (m) => m.FavoritosPageModule
@@ -17,7 +24,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: 'api-rest',
+        redirectTo: 'ranDogs',
         pathMatch: 'full',
       },
     ],

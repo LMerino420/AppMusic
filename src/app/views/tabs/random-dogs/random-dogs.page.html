@@ -1,0 +1,30 @@
+<ion-header class="ion-no-border">
+    <ion-toolbar>
+        <ion-buttons>
+            <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" align="center">
+    <h1>CONSUMO DE API-DOGS</h1>
+    <ion-item>
+        <ion-label position="floating">Cantidad de imagenes</ion-label>
+        <ion-input type="number" (keyup)="getImages($event)"></ion-input>
+    </ion-item>
+    <div *ngIf="picOnly" class="picOnly">
+        <img [src]="urlImg" alt="Foto de perritos aleatoria" />
+    </div>
+    <ion-grid *ngIf="!picOnly">
+        <ion-row>
+            <ion-col class="galleryPic" *ngFor="let img of images" size="6">
+                <img [src]="img.url" alt="Galeria de imagenes de perritos" />
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+    <ion-button (click)="getData()" expand="full" shape="round">
+        Obtener >
+    </ion-button>
+</ion-content>
