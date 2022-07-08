@@ -7,9 +7,12 @@ import { ApiDogService } from 'src/app/services/api-dog.service';
   styleUrls: ['./random-dogs.page.scss'],
 })
 export class RandomDogsPage {
-  urlImg: string;
+  introGallery: string;
+  limitImages: any;
   picOnly: boolean = true;
-  images: any;
+  // variables para manejo de errores
+  showError: boolean = false;
+  msjError: string;
 
   constructor(private apiDog: ApiDogService) {
     this.getData();
@@ -18,21 +21,47 @@ export class RandomDogsPage {
   async getData() {
     this.picOnly = true;
     let data = await this.apiDog.getData();
-    this.urlImg = await data[0].url;
-    // console.log('IMG=>', this.urlImg);
+    const res = await data.json();
+    // console.log('DATA =>', data);
+    if (data.status != 200) {
+      // mostrar error
+      this.showError = true;
+      this.msjError = 'Error: ' + res.status + ', ' + res.message;
+    } else {
+      this.limitImages = null;
+      this.introGallery = res;
+    }
   }
 
   async getImages(keywords) {
     let cnt = keywords.target.value;
     if (cnt.length > 0 && cnt.length != '') {
-      let cant = parseInt(cnt);
-      let imgs = await this.apiDog.limitImage(cant);
-      this.images = imgs;
-      // console.log('IMGS=>', this.images);
-      this.picOnly = false;
+      let data = await this.apiDog.limitImage(cnt);
+      let res = await data.json();
+      if (data.status != 200) {
+        // mostrar error
+        this.showError = true;
+        this.msjError = 'Error: ' + res.status + ', ' + res.message;
+      } else {
+        this.introGallery = null;
+        this.limitImages = res;
+        this.picOnly = false;
+      }
     } else {
       await this.getData();
       this.picOnly = true;
+    }
+  }
+
+  async saveFavorite(item) {
+    console.log('ITEM SAVE=>', item);
+    let data = await this.apiDog.saveFavorites(item.id);
+    let res = await data.json();
+    if (data.status != 200) {
+      this.showError = true;
+      this.msjError = 'Error: ' + res.status + ', ' + res.message;
+    } else {
+      console.log('DATA SAVE=>', data);
     }
   }
 }

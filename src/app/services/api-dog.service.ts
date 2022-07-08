@@ -8,16 +8,44 @@ export class ApiDogService {
     console.log('API-DOGS');
   }
 
-  url = 'https://api.thedogapi.com/v1/images/search';
-  // apiKey = '&api_key=91608fe4-1856-424d-8b2b-3851b49913aa';
+  host = 'https://api.thedogapi.com/v1';
+  apiKey = '&api_key=91608fe4-1856-424d-8b2b-3851b49913aa';
 
   async getData() {
-    return await fetch(this.url).then((d) => d.json());
+    let url = '/images/search';
+    let qParams = '?limit=4';
+    return await fetch(this.host + url + qParams + this.apiKey);
   }
 
   async limitImage(cnt) {
     // console.log('API CANT=>', cnt);
+    let url = '/images/search';
     let qParams = '?limit=';
-    return await fetch(this.url + qParams + cnt).then((d) => d.json());
+    return await fetch(this.host + url + qParams + cnt + this.apiKey);
+  }
+
+  async loadFavorites() {
+    let url = '/favourites';
+    let qParams = '?limit=4';
+    return await fetch(this.host + url + qParams + this.apiKey);
+    // return await fetch(this.host + url + qParams + this.apiKey).then((d) =>
+    //   d.json()
+    // );
+  }
+
+  async saveFavorites(item) {
+    console.log('ITEM SAVE=>', item);
+    let url = '/favourites';
+    let qParams = '?limit=4';
+    let properties = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        image_id: item,
+      }),
+    };
+    return await fetch(this.host + url + qParams + this.apiKey, properties);
   }
 }

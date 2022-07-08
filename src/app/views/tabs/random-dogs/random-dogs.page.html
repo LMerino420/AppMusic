@@ -10,21 +10,30 @@
 
 <ion-content class="ion-padding" align="center">
     <h1>CONSUMO DE API-DOGS</h1>
+    <span *ngIf="showError">{{msjError}} </span>
     <ion-item>
         <ion-label position="floating">Cantidad de imagenes</ion-label>
         <ion-input type="number" (keyup)="getImages($event)"></ion-input>
     </ion-item>
-    <div *ngIf="picOnly" class="picOnly">
-        <img [src]="urlImg" alt="Foto de perritos aleatoria" />
-    </div>
-    <ion-grid *ngIf="!picOnly">
-        <ion-row>
-            <ion-col class="galleryPic" *ngFor="let img of images" size="6">
+    <ion-grid>
+        <ion-row *ngIf="picOnly">
+            <ion-col class="galleryPic" *ngFor="let intro of introGallery" size="6">
+                <img [src]="intro.url" alt="Perritos aleatorios" />
+                <ion-button fill="outline" shape="round" (click)="saveFavorite(intro)">
+                    <ion-icon name="star"></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row *ngIf="!picOnly">
+            <ion-col class="galleryPic" *ngFor="let img of limitImages" size="6">
                 <img [src]="img.url" alt="Galeria de imagenes de perritos" />
+                <ion-button fill="outline" shape="round" (click)="saveFavorite(img)">
+                    <ion-icon name="star"></ion-icon>
+                </ion-button>
             </ion-col>
         </ion-row>
     </ion-grid>
-    <ion-button (click)="getData()" expand="full" shape="round">
-        Obtener >
+    <ion-button (click)="getData()" expand="full" shape="round" fill="outline">
+        Recargar
     </ion-button>
 </ion-content>
