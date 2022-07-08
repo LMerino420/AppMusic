@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { AlertController, ToastController } from '@ionic/angular';
 import { ApiDogService } from 'src/app/services/api-dog.service';
 
 @Component({
@@ -14,8 +15,43 @@ export class RandomDogsPage {
   showError: boolean = false;
   msjError: string;
 
-  constructor(private apiDog: ApiDogService) {
+  constructor(
+    private apiDog: ApiDogService,
+    private toastCtrl: ToastController,
+    private alertCtrl: AlertController
+  ) {
     this.getData();
+  }
+
+  async showToast(meth) {
+    let msj: string;
+    switch (meth) {
+      case 'getData':
+        msj = 'Se cargaron las imagenes con exito.';
+        break;
+      case 'getImages':
+        msj = 'Busqueda exitosa.';
+        break;
+      case 'saveFav':
+        msj = 'Se guardo correctemente en favoritos.';
+        break;
+    }
+
+    const toast = await this.toastCtrl.create({
+      message: msj,
+      duration: 1000,
+      position: 'top',
+    });
+    toast.present();
+  }
+
+  async showAlert(code, msj) {
+    const alert = await this.alertCtrl.create({
+      header: 'ERROR [' + code + ']',
+      message: msj,
+      buttons: ['OK'],
+    });
+    await alert.present();
   }
 
   async getData() {
@@ -25,11 +61,13 @@ export class RandomDogsPage {
     // console.log('DATA =>', data);
     if (data.status != 200) {
       // mostrar error
-      this.showError = true;
-      this.msjError = 'Error: ' + res.status + ', ' + res.message;
+      let code = data.status;
+      let msj = res.message;
+      this.showAlert(code, msj);
     } else {
       this.limitImages = null;
       this.introGallery = res;
+      this.showToast('getData');
     }
   }
 
@@ -40,12 +78,14 @@ export class RandomDogsPage {
       let res = await data.json();
       if (data.status != 200) {
         // mostrar error
-        this.showError = true;
-        this.msjError = 'Error: ' + res.status + ', ' + res.message;
+        let code = data.status;
+        let msj = res.message;
+        this.showAlert(code, msj);
       } else {
         this.introGallery = null;
         this.limitImages = res;
         this.picOnly = false;
+        this.showToast('getImages');
       }
     } else {
       await this.getData();
@@ -55,13 +95,16 @@ export class RandomDogsPage {
 
   async saveFavorite(item) {
     console.log('ITEM SAVE=>', item);
-    let data = await this.apiDog.saveFavorites(item.id);
+    let data = await this.apiDog.saveFavorite(item.id);
     let res = await data.json();
     if (data.status != 200) {
-      this.showError = true;
-      this.msjError = 'Error: ' + res.status + ', ' + res.message;
+      // mostrar error
+      let code = data.status;
+      let msj = res.message;
+      this.showAlert(code, msj);
     } else {
-      console.log('DATA SAVE=>', data);
+      this.showToast('saveFav');
+      console.log('DATA SAVE=>', item.id);
     }
   }
 }

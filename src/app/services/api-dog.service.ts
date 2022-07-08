@@ -25,18 +25,13 @@ export class ApiDogService {
   }
 
   async loadFavorites() {
-    let url = '/favourites';
-    let qParams = '?limit=4';
-    return await fetch(this.host + url + qParams + this.apiKey);
-    // return await fetch(this.host + url + qParams + this.apiKey).then((d) =>
-    //   d.json()
-    // );
+    let url = '/favourites?';
+    return await fetch(this.host + url + this.apiKey);
   }
 
-  async saveFavorites(item) {
-    console.log('ITEM SAVE=>', item);
-    let url = '/favourites';
-    let qParams = '?limit=4';
+  async saveFavorite(item) {
+    // console.log('ITEM SAVE=>', item);
+    let url = '/favourites?';
     let properties = {
       method: 'POST',
       headers: {
@@ -46,6 +41,19 @@ export class ApiDogService {
         image_id: item,
       }),
     };
-    return await fetch(this.host + url + qParams + this.apiKey, properties);
+    return await fetch(this.host + url + this.apiKey, properties);
+  }
+
+  async deleteFavorite(item) {
+    // console.log('ITEM DELETE=>', item);
+    let url = '/favourites/';
+    let union = '/?';
+    let properties = {
+      method: 'DELETE',
+    };
+    return await fetch(
+      this.host + url + item + union + this.apiKey,
+      properties
+    );
   }
 }

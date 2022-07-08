@@ -1,9 +1,23 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>favoritos</ion-title>
-  </ion-toolbar>
+<ion-header class="ion-no-border">
+    <ion-toolbar>
+        <ion-buttons>
+            <ion-buttons slot="start">
+                <ion-menu-button></ion-menu-button>
+            </ion-buttons>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content>
-
+<ion-content class="ion-padding" align="center">
+    <h1>Favoritos</h1>
+    <ion-grid>
+        <ion-row>
+            <ion-col class="galleryPic" *ngFor="let img of favImg" size="6">
+                <img [src]="img.image.url" alt="Perritos aleatorios" />
+                <ion-button color="danger" fill="outline" shape="round" (click)="deleteFavorite(img)">
+                    <ion-icon name="trash"></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>
