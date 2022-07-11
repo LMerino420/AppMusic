@@ -1,0 +1,30 @@
+ion-card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    height: 40vh;
+}
+
+ion-button {
+    margin-top: 30px;
+}
+
+.cardClassAdd {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cardClassDel {
+    display: flex;
+    justify-content: end;
+    align-items: flex-end;
+}
+
+.del-button {
+    ion-icon {
+        margin: 15px;
+        font-size: 40px;
+        color: red;
+        // elimina el alt del icono
+        pointer-events: none;
+    }
+}

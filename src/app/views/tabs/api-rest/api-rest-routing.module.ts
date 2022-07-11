@@ -23,6 +23,11 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'uploadPic',
+        loadChildren: () =>
+          import('../upload/upload.module').then((m) => m.UploadPageModule),
+      },
+      {
         path: '',
         redirectTo: 'ranDogs',
         pathMatch: 'full',
